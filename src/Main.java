@@ -10,9 +10,10 @@ import java.util.List;
 
 public class Main {
 
-    private static final int KERNEL_SIZE = 11;
+    private static final int KERNEL_SIZE = 7;
 
     public static void main(String[] args) throws IOException {
+        // String rootFolder = "/Users/mushra/temp/text";
         String rootFolder = "/Users/mushra/nextcloud/alltext";
         FolderReader folderReader = new FolderReader(rootFolder, false);
         List<String> strings = folderReader.readContents();
@@ -29,6 +30,7 @@ public class Main {
         for (int i = 0; i < 5; i++) {
             Sentence sentence = new Sentence(40, KERNEL_SIZE, kernelSet);
             sentences.add(sentence.generate());
+            // sentence.printKernels();
         }
         for (String sentence : sentences) {
             System.err.println(sentence);

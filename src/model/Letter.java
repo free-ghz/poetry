@@ -18,7 +18,7 @@ public class Letter {
         if (neighbourStart < 0) neighbourStart = 0;
         int localStart = distance;
         if (localStart < 0) localStart = 0;
-        String overlap = neighbour.toString().substring(neighbourStart, neighbourStart + overlapLength);
+        String overlap = neighbour.getValue().substring(neighbourStart, neighbourStart + overlapLength);
         possibleKernels.cull(overlap, localStart);
     }
 

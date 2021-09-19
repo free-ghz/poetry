@@ -25,7 +25,7 @@ public class Sentence {
         System.out.println(this);
 
         for (int i = 0; i < kernelSize / 2; i++) {
-            letters.get(i + 1).setNeighbour(-(kernelSize / 2), letters.get(0).getKernel());
+            letters.get(i + 1).setNeighbour(-(kernelSize / 2) + i, letters.get(0).getKernel());
         }
 
         // first letter is set, loop through rest
@@ -53,12 +53,13 @@ public class Sentence {
 
             // update neighbours
             for (int i = 0; i < kernelSize; i++) {
-                int neighbourOffset = ((kernelSize / 2) + 1) - kernelSize;
+                int neighbourOffset = ((kernelSize / 2) + 1) - kernelSize + i;
+                if (neighbourOffset == 0) continue;
                 int neighbourIndex = chosenIndex + neighbourOffset;
                 if (neighbourIndex < 0) continue;
                 if (neighbourIndex >= length) continue;
                 Letter neighbour = letters.get(neighbourIndex);
-                if (!neighbour.isLocked()) neighbour.setNeighbour(neighbourOffset, chosen.getKernel());
+                if (!neighbour.isLocked()) neighbour.setNeighbour(-neighbourOffset, chosen.getKernel());
             }
         }
         System.out.println(this);
@@ -76,6 +77,28 @@ public class Sentence {
                 s.append("_");
             }
         }
+        return s.toString();
+    }
+
+    public void printKernels() {
+        int padding = kernelSize / 2;
+        String pad = whitespace(padding);
+        for (int i = 0; i < length; i++) {
+            Letter l = letters.get(i);
+            String offset = whitespace(i);
+            if (l.isLocked()) {
+                System.out.println(offset + pad + "█");
+            } else if (l.isCrystallized()) {
+                System.out.println(offset + l.getKernel().getValue());
+            } else {
+                System.out.println(offset + pad + "_");
+            }
+        }
+    }
+
+    private String whitespace(int length) {
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < length; i++) s.append(" ");
         return s.toString();
     }
 }
