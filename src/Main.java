@@ -1,14 +1,16 @@
 import io.FolderReader;
 import io.TextNormalizer;
 import model.KernelSet;
+import model.Sentence;
 import text.InputProcessor;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
 
-    private static final int KERNEL_SIZE = 5;
+    private static final int KERNEL_SIZE = 11;
 
     public static void main(String[] args) throws IOException {
         String rootFolder = "/Users/mushra/nextcloud/alltext";
@@ -23,5 +25,13 @@ public class Main {
         InputProcessor inputProcessor = new InputProcessor(KERNEL_SIZE);
         KernelSet kernelSet = inputProcessor.toKernelSet(normalizedStrings);
 
+        List<String> sentences = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            Sentence sentence = new Sentence(40, KERNEL_SIZE, kernelSet);
+            sentences.add(sentence.generate());
+        }
+        for (String sentence : sentences) {
+            System.err.println(sentence);
+        }
     }
 }
