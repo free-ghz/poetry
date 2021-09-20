@@ -18,12 +18,12 @@ public class TextNormalizer {
     public List<String> transform(String line) {
         line = removeMagicBytes(line);
         line = line.replaceAll("[\r\n]+", "\n");
-        line = line.replaceAll("[\s\t]+", " ");
+        line = line.replaceAll("[\s\t\n]+", " ");
         String[] lines = line.split("\n");
         return Arrays.stream(lines)
                 .map(String::strip)
                 .filter(l -> !l.isBlank())
-                .map(l -> MagicBytes.LINE_BEGIN.code + l + MagicBytes.LINE_END.code)
+                // .map(l -> MagicBytes.LINE_BEGIN.code + l + MagicBytes.LINE_END.code)
                 .toList();
     }
 

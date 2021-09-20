@@ -3,13 +3,13 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sentence {
+public class SentenceReverse {
 
     private final List<Letter> letters;
     private final int length;
     private final int kernelSize;
 
-    public Sentence(int length, int kernelSize, KernelSet allKernels) {
+    public SentenceReverse(int length, int kernelSize, KernelSet allKernels) {
         this.kernelSize = kernelSize;
         this.length = length;
         letters = new ArrayList<>();
@@ -21,11 +21,12 @@ public class Sentence {
     public String generate() {
         System.out.println(this);
 
-        letters.get(0).crystallize();
+        letters.get(length - 1).crystallize();
         System.out.println(this);
 
         for (int i = 0; i < kernelSize / 2; i++) {
-            letters.get(i + 1).setNeighbour(-(i + 1), letters.get(0).getKernel());
+            int index = length - 1 - (kernelSize / 2) + i;
+            letters.get(index).setNeighbour(-(kernelSize / 2) + i, letters.get(length - 1).getKernel());
         }
 
         // first letter is set, loop through rest

@@ -13,6 +13,7 @@ public class Letter {
     }
 
     public void setNeighbour(int distance, Kernel neighbour) {
+        if (isCrystallized) return;
         int overlapLength = kernelSize - Math.abs(distance);
         int neighbourStart = 0 - distance;
         if (neighbourStart < 0) neighbourStart = 0;
@@ -28,6 +29,10 @@ public class Letter {
 
     public void crystallize() {
         isCrystallized = true;
+        if (getPossibleKernelsSize() == 0) { // should speed things up perhaps
+            isLocked = true;
+            return;
+        }
         kernel = possibleKernels.crystallize();
         if (kernel == null) isLocked = true;
     }

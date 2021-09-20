@@ -58,6 +58,7 @@ public class KernelSet {
                 allWithDoubles.add(key);
             }
         });
+        map.clear(); // Should save heap space? Might be real stupid tho
         if (allWithDoubles.isEmpty()) return null;
         Random random = new Random();
         int index = random.nextInt(allWithDoubles.size());
